@@ -6,6 +6,8 @@ from time import sleep
 
 
 def start(hours):
+    setupFolders()
+
     camera = PiCamera()
     camera.resolution = (1920, 1080) 
 
@@ -29,6 +31,12 @@ def start(hours):
             i += 1
 
 
+def setupFolders():
+    os.mkdir('./clouds')
+    os.mkdir('./clouds/raw')
+    os.mkdir('./clouds/processed')
+
+    print('Cloud images directory setup 🎉')
 
 
 def collectData():
