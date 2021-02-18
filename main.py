@@ -82,6 +82,8 @@ def csvWrite():
 
     with open('data.csv', 'a+') as csv_file:
 
+        csv_writer = csv.DictWriter(csv_file)
+
         csv_writer.writerows(collectData())
 
     print('Written data to data.csv ✅')
