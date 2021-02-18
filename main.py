@@ -1,25 +1,32 @@
 from data_processing import get_pct_clouds, calcLatLong, calcOktas
-import shutil
-import csv
-import os
-
+import shutil, csv, os,signal, datetime, sys
 from picamera import PiCamera
-from time import sleep
+from time import sleep 
 
 
 
-def start():
+def start(hours):
     camera = PiCamera()
     camera.resolution = (1920, 1080) 
 
-    for i in range(3*60):
-        camera.start_preview()
-        sleep(3)
-        camera.capture('./clouds/raw/cloud_{i}' % i)
-        camera.stop_preview()
+    i = 0
+    while True:
+        d = datetime.datetime.now()
+        
 
-        if i % 25 == 0:
-            csvWrite()
+        if d.hour == hours:
+            os.kill(os.getppid(), signal.SIGKILL)
+            sys.exit() 
+        else:
+            camera.start_preview()
+            sleep(3)
+            camera.capture(f'./clouds/raw/cloud_{i}.jpg')
+            camera.stop_preview()
+
+            if i % 10 == 0:
+                csvWrite()
+            
+            i += 1
 
 
 
@@ -44,8 +51,10 @@ def collectData():
         temp['cloud cover (oktas)'] = calcOktas(ptc)
 
         data.append(temp)
+
+        shutil.move(f'./clouds/raw/{filename}', f'./clouds/processed/{filename}')
     
-    shutil.move('./clouds/raw', './clouds/processed')
+    
 
     return data
 
@@ -61,4 +70,7 @@ def csvWrite():
 
         csv_writer.writerows(collectData())
 
-    print('Done writing to data.csv 🎉')
+    print('Written data to data.csv 🎉')
+
+
+start(3)

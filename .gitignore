@@ -1,1 +1,5 @@
 clouds/
+
+poetry.lock
+pyproject.toml
+data.csv
