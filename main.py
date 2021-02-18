@@ -7,6 +7,7 @@ from time import sleep
 
 def run(hours):
     setupFolders()
+    csvCreate()
 
     camera = PiCamera()
     camera.resolution = (1920, 1080) 
@@ -80,11 +81,6 @@ def csvCreate():
 def csvWrite():
 
     with open('data.csv', 'a+') as csv_file:
-        fields = ['name', '% of clouds', 'latitude', 'longitude', 'cloud cover (oktas)']
-
-        csv_writer = csv.DictWriter(csv_file, fieldnames=fields)
-
-        csv_writer.writeheader()
 
         csv_writer.writerows(collectData())
 
