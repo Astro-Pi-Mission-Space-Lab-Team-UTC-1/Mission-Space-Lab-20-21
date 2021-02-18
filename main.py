@@ -5,7 +5,7 @@ from time import sleep
 
 
 
-def start(hours):
+def run(hours):
     setupFolders()
 
     camera = PiCamera()
@@ -14,9 +14,10 @@ def start(hours):
     i = 0
     while True:
         d = datetime.datetime.now()
-        
 
         if d.hour == hours:
+            csvWrite()
+            print('Done! 🎉')
             os.kill(os.getppid(), signal.SIGKILL)
             sys.exit() 
         else:
@@ -58,13 +59,22 @@ def collectData():
 
         temp['cloud cover (oktas)'] = calcOktas(ptc)
 
-        data.append(temp)
-
         shutil.move(f'./clouds/raw/{filename}', f'./clouds/processed/{filename}')
-    
-    
+
+        data.append(temp)    
 
     return data
+
+def csvCreate():
+
+    with open('data.csv', 'w') as csv_file:
+        fields = ['name', '% of clouds', 'latitude', 'longitude', 'cloud cover (oktas)']
+
+        csv_writer = csv.DictWriter(csv_file, fieldnames=fields)
+
+        csv_writer.writeheader()
+
+    print('data.csv file created! ✅')
 
 
 def csvWrite():
@@ -78,7 +88,7 @@ def csvWrite():
 
         csv_writer.writerows(collectData())
 
-    print('Written data to data.csv 🎉')
+    print('Written data to data.csv ✅')
 
 
-start(3)
+run(3)
