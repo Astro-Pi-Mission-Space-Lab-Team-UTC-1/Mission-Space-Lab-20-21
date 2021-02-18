@@ -54,12 +54,10 @@ def calcOktas(pct):
     return 8
 
 def calcLatLong():
-    with open('stations.txt', 'r') as file:
-        lines = file.readlines()
 
-    name = lines[0]
-    line1 = lines[1]
-    line2 = lines[2]
+    name = 'ISS (ZARYA)'             
+    line1 = '1 25544U 98067A   21047.44578741  .00000631  00000-0  19638-4 0  9995'
+    line2 = '2 25544  51.6433 219.9227 0002719  22.5068  17.2470 15.48966013269885'
 
     iss = readtle(name, line1, line2)
     iss.compute()

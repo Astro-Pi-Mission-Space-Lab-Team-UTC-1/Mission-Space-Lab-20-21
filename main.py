@@ -34,11 +34,16 @@ def run(hours):
 
 
 def setupFolders():
-    os.mkdir('./clouds')
-    os.mkdir('./clouds/raw')
-    os.mkdir('./clouds/processed')
+    if os.path.exists('./clouds') != True:    
+        os.mkdir('./clouds')
+        os.mkdir('./clouds/raw')
+        os.mkdir('./clouds/processed')
 
-    print('Cloud images directory setup 🎉')
+        print('Cloud images directory setup 🎉')
+    else:
+        print('Folders already setup')
+        return
+
 
 
 def collectData():
@@ -47,18 +52,18 @@ def collectData():
     images = os.listdir('./clouds/raw')
 
     for filename in images:
-        temp = {}
+        temp = []
 
-        temp['name'] = filename
+        temp.append(filename)
 
         ptc = get_pct_clouds(filename)
-        temp['% of clouds'] = ptc
+        temp.append(ptc)
 
         lat, long = calcLatLong()
-        temp['latitude'] = lat
-        temp['longitude'] = long
+        temp.append( lat)
+        temp.append( long)
 
-        temp['cloud cover (oktas)'] = calcOktas(ptc)
+        temp.append(calcOktas(ptc))
 
         shutil.move(f'./clouds/raw/{filename}', f'./clouds/processed/{filename}')
 
@@ -68,25 +73,23 @@ def collectData():
 
 def csvCreate():
 
-    with open('data.csv', 'w') as csv_file:
+    with open('data.csv', 'w+') as csv_file:
         fields = ['name', '% of clouds', 'latitude', 'longitude', 'cloud cover (oktas)']
 
-        csv_writer = csv.DictWriter(csv_file, fieldnames=fields)
+        csv_writer = csv.writer(csv_file)
 
-        csv_writer.writeheader()
+        csv_writer.writerow(fields)
 
-    print('data.csv file created! ✅')
+    print('Created data.csv file ✅')
 
 
 def csvWrite():
 
-    with open('data.csv', 'a+') as csv_file:
-
-        csv_writer = csv.DictWriter(csv_file)
+    with open('data.csv', 'a') as csv_file:
+        csv_writer = csv.writer(csv_file)
 
         csv_writer.writerows(collectData())
 
-    print('Written data to data.csv ✅')
-
+    print('Data written to data.csv ✅')
 
 run(3)
