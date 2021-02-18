@@ -1,5 +1,6 @@
 clouds/
+__pycache__
 
 poetry.lock
 pyproject.toml
-data.csv
+./data.csv
