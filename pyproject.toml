@@ -1,13 +1,17 @@
 [tool.poetry]
-name = "astropithing"
+name = "Astro Pi | Mission Space Lab"
 version = "0.1.0"
 description = ""
-authors = ["Your Name <you@example.com>"]
+authors = ["Samson Nagamani <samson.nagamani@pm.me>", "Sam Quail <sam@sqail.org>", "Sonia Kumar <sonia.kumar.242@gmail.com>", "Matthew Nock <thematt.nock@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.8"
-ephem = "^3.7.7"
 reverse-geocoder = "^1.5.1"
+ephem = "^3.7.7"
+exif = "^1.2.0"
+pandas = "^1.2.2"
+geopandas = "^0.8.2"
+matplotlib = "^3.3.4"
 
 [tool.poetry.dev-dependencies]
 

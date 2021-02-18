@@ -1,32 +1,64 @@
-from PIL import Image, ImageEnhance, ImageFilter
-import numpy as np
-from scipy import stats
-from oktas import calcOktas
+from data_processing import get_pct_clouds, calcLatLong, calcOktas
+import shutil
+import csv
+import os
+
+from picamera import PiCamera
+from time import sleep
 
 
-def white():
-    wc = 0
 
-    # Open locally stored image
-    image = Image.open("clouds/cloud4.png")
+def start():
+    camera = PiCamera()
+    camera.resolution = (1920, 1080) 
 
-    temp = ImageEnhance.Contrast(image).enhance(100).convert("1")
+    for i in range(3*60):
+        camera.start_preview()
+        sleep(3)
+        camera.capture('./clouds/raw/cloud_{i}' % i)
+        camera.stop_preview()
 
-    temp.save("sadf.jpeg")
-
-    # Image as numpy array
-    np_image = np.array(temp)
-
-    # Compute total white pixels from image array
-    total_white_pix = np.sum(np_image == True)
-    total_pix = np.size(np_image)
-
-    # Compute % of image which is white
-    pct_white_of_image = round((total_white_pix / total_pix) * 100, 2)
-
-    print(f"total pixels: {total_pix}")
-    print(f"total white pixels: {total_white_pix}")
-    print(f"% white of image: {pct_white_of_image}%")
+        if i % 25 == 0:
+            csvWrite()
 
 
-white()
+
+
+def collectData():
+    data = []
+
+    images = os.listdir('./clouds/raw')
+
+    for filename in images:
+        temp = {}
+
+        temp['name'] = filename
+
+        ptc = get_pct_clouds(filename)
+        temp['% of clouds'] = ptc
+
+        lat, long = calcLatLong()
+        temp['latitude'] = lat
+        temp['longitude'] = long
+
+        temp['cloud cover (oktas)'] = calcOktas(ptc)
+
+        data.append(temp)
+    
+    shutil.move('./clouds/raw', './clouds/processed')
+
+    return data
+
+
+def csvWrite():
+
+    with open('data.csv', 'a+') as csv_file:
+        fields = ['name', '% of clouds', 'latitude', 'longitude', 'cloud cover (oktas)']
+
+        csv_writer = csv.DictWriter(csv_file, fieldnames=fields)
+
+        csv_writer.writeheader()
+
+        csv_writer.writerows(collectData())
+
+    print('Done writing to data.csv 🎉')
