@@ -18,7 +18,7 @@ def run(hours):
 
         if d.hour == hours:
             csvWrite()
-            print('Done! 🎉')
+            print('Done! ✅')
             os.kill(os.getppid(), signal.SIGKILL)
             sys.exit() 
         else:
@@ -72,7 +72,7 @@ def collectData():
 
 def csvCreate():
 
-    with open('data.csv', 'w') as csv_file:
+    with open('data.csv', 'w+') as csv_file:
         fields = ['name', '% of clouds', 'latitude', 'longitude', 'cloud cover (oktas)']
 
         csv_writer = csv.writer(csv_file)
