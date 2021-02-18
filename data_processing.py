@@ -1,6 +1,7 @@
 from PIL import Image, ImageEnhance
 from ephem import readtle, degree
 
+# Returns number of dark/irrelevent pixels and pixels of a cloud
 def get_pixels_of_class(image):
     pixels = image.getdata()
     black_thresh = 150
@@ -18,7 +19,7 @@ def get_pixels_of_class(image):
 
     return total_dark_pix, total_cloud_pix
 
-
+# Returns the percentage of the image which is cloud
 def get_pct_clouds(filename):
     # Open locally stored image
     image = ImageEnhance.Contrast(Image.open(f"./clouds/raw/{filename}")).enhance(2)
@@ -33,6 +34,7 @@ def get_pct_clouds(filename):
     return pct_cloud_of_image
 
 
+# Calculates the cloud coverage in oktas from the percentage
 def calcOktas(pct):
   if pct == 0:
     return 0
@@ -53,6 +55,8 @@ def calcOktas(pct):
   elif pct == 100:
     return 8
 
+
+# Calculates the decimal latitude and longitude of the ISS
 def calcLatLong():
 
     name = 'ISS (ZARYA)'            

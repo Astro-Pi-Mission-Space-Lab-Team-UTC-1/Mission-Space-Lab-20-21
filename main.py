@@ -11,7 +11,8 @@ def run(hours):
 
     camera = PiCamera()
     camera.resolution = (1920, 1080) 
-
+    
+    # Loop runs for 3 hours
     i = 0
     while True:
         d = datetime.datetime.now()
@@ -33,6 +34,7 @@ def run(hours):
             i += 1
 
 
+# Create 'clouds' folder if it doesn't exist
 def setupFolders():
     if os.path.exists('./clouds') != True:
         os.mkdir('./clouds')
@@ -44,7 +46,7 @@ def setupFolders():
         print('Clouds directory already setup! ✅')
 
 
-
+# Collects an array of information to write to csv
 def collectData():
     data = []
 
@@ -64,12 +66,14 @@ def collectData():
 
         temp.append(calcOktas(ptc))
 
+        # Moves file after generating data from it
         shutil.move(f'./clouds/raw/{filename}', f'./clouds/processed/{filename}')
 
         data.append(temp)    
 
     return data
 
+# Writes empty data.csv
 def csvCreate():
 
     with open('data.csv', 'w+') as csv_file:
@@ -81,7 +85,7 @@ def csvCreate():
 
     print('data.csv file created! ✅')
 
-
+# Appends data to data.csv
 def csvWrite():
 
     with open('data.csv', 'a+') as csv_file:
@@ -92,5 +96,5 @@ def csvWrite():
 
     print('Written data to data.csv ✅')
 
-
+# Starts program
 run(3)
