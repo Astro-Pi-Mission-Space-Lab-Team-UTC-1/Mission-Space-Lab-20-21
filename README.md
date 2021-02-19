@@ -94,9 +94,7 @@ An image is taken every 5 seconds.
 
 &nbsp;
 
-$\therefore average\ image\ file\ size = \frac{3,072}{\frac{10,800}{5}}$
-
-$\therefore average\ image\ file\ size = 1.42MB$
+![](https://latex2image-output.s3.amazonaws.com/img-8eQj2syd.png)
 
 &nbsp;
 
@@ -108,9 +106,7 @@ The python files take **less than 0.5MB**
 
 Assuming averge image file size is 1MB
 
-$total\ image\ storage = 1 \times \frac{3 \times 60 \times 60}{5} = 2,160MB$
-
-$total\ free\ space = 3,072 - 2,160 = 912MB$
+![](https://latex2image-output.s3.amazonaws.com/img-5S3UpSGS.png)
 
 &nbsp;
 
