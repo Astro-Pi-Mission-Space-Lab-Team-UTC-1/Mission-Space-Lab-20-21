@@ -1,5 +1,6 @@
 from PIL import Image, ImageEnhance
 from ephem import readtle, degree
+from pathlib import Path
 
 dir_path = Path(__file__).parent.resolve()
 
