@@ -106,7 +106,7 @@ The python files take **less than 0.5MB**
 
 Assuming averge image file size is 1MB
 
-![](https://latex2image-output.s3.amazonaws.com/img-5S3UpSGS.png)
+![](https://latex2image-output.s3.amazonaws.com/img-9dzWnMsZ.jpg)
 
 &nbsp;
 
