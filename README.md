@@ -111,7 +111,7 @@ Assuming averge image file size is 1MB
 &nbsp;
 
 This is more than enough storage for the csv file and python files.
-For this reason we are have not deleted the images so we can review them in phase 4.
+For this reason we have not deleted the images so we can review them in phase 4.
 
 
 ### Contributors

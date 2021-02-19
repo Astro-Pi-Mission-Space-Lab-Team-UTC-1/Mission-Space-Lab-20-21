@@ -3,11 +3,12 @@ import shutil, csv, os,signal, datetime, sys
 from picamera import PiCamera
 from time import sleep
 
-
-def run(hours):
+# Main function
+def run(hours, minutes):
     setupFolders()
     csvCreate()
 
+    # Initializes PiCamera instance
     camera = PiCamera()
     camera.resolution = (1920, 1080)
 
@@ -16,7 +17,9 @@ def run(hours):
     while True:
         d = datetime.datetime.now()
 
-        if d.hour == hours:
+
+        if d.hour == hours and d.minute == minutes:
+            # processes
             csvWrite()
             print('Done! ✅')
             os.kill(os.getppid(), signal.SIGKILL)
@@ -49,23 +52,31 @@ def setupFolders():
 def collectData():
     data = []
 
+    # Returns array of filenames in the directory
     images = os.listdir('./clouds/raw')
 
+    # Loops through all the file names
     for filename in images:
         temp = []
 
+        # Adds name of image to array
         temp.append(filename)
 
+        # Calculates percentage of cloud for the image
         ptc = get_pct_clouds(filename)
+        # Adds ptc to array
         temp.append(ptc)
 
+        # Calculates the current latitude and longitude
         lat, long = calcLatLong()
+        # Adds latitude and longitude to array
         temp.append(lat)
         temp.append(long)
 
+        # Calculate and append the cloud coverage (okta) to array
         temp.append(calcOktas(ptc))
 
-        # Moves file after generating data from it
+        # Moves file after processing it
         shutil.move(f'./clouds/raw/{filename}', f'./clouds/processed/{filename}')
 
         data.append(temp)
@@ -95,5 +106,6 @@ def csvWrite():
 
     print('Written data to data01.csv ✅')
 
-# Starts program
-run(3)
+# Run program for specified time
+# run(hours, minutes)
+run(2, 58)

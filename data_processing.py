@@ -3,16 +3,26 @@ from ephem import readtle, degree
 
 # Returns number of dark/irrelevent pixels and pixels of a cloud
 def get_pixels_of_class(image):
+    # Returns a list of tuples
+    # Each index of the tuple is in the form [255, 255, 255]
+    # Represeting [Red, Green, Blue]
     pixels = image.getdata()
-    black_thresh = 150
+
+    # Sets threshold values for 'dark' and 'cloud' pixels
+    dark_thresh = 150
     cloud_thresh = 600
 
+    # Initiates counter variables
     total_dark_pix = 0
     total_cloud_pix = 0
 
+    # Loops over every pixel in the image
     for pixel in pixels:
+        # Sums each value in the tuple
         pixel_size = sum(pixel)
-        if (pixel_size < black_thresh):
+
+        # Increments total dark/cloud counter variable
+        if (pixel_size < dark_thresh):
             total_dark_pix += 1
         elif pixel_size > cloud_thresh:
             total_cloud_pix += 1
@@ -59,6 +69,7 @@ def calcOktas(pct):
 # Calculates the decimal latitude and longitude of the ISS
 def calcLatLong():
 
+    # TLE for ISS
     name = 'ISS (ZARYA)'
     line1 = '1 25544U 98067A   21047.44578741  .00000631  00000-0  19638-4 0  9995'
     line2 = '2 25544  51.6433 219.9227 0002719  22.5068  17.2470 15.48966013269885'
@@ -66,7 +77,9 @@ def calcLatLong():
     iss = readtle(name, line1, line2)
     iss.compute()
 
+    # Calculates latitude and longitude in degree form
     lat = iss.sublat / degree
     long = iss.sublong / degree
 
+    # Return latitude and longitude
     return lat, long
