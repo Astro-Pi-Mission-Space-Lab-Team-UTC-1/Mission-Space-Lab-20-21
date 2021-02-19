@@ -2,6 +2,8 @@
 
 ### Imported Packages
 - [pillow](https://pillow.readthedocs.io/en/stable/index.html "Python Imaging Library")
+- [logzero](https://logzero.readthedocs.io/en/latest/#)
+- [pathlib](https://pathlib.readthedocs.io/en/latest/#)
 - [ephem](https://pypi.org/project/ephem/ "High Precision Astronomy Computations")
 - [picamera](https://picamera.readthedocs.io/en/release-1.13/index.html "Raspberry Pi camera module")
 
