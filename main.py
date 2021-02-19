@@ -2,9 +2,14 @@ from data_processing import get_pct_clouds, calcLatLong, calcOktas
 import shutil, csv, os,signal, datetime, sys
 from picamera import PiCamera
 from time import sleep
+from logzero import logger, logfile
+
+# Setup logfile
+logfile('./UTC1.log')
 
 # Main function
 def run(hours, minutes):
+    # Setup
     setupFolders()
     csvCreate()
 
@@ -21,7 +26,7 @@ def run(hours, minutes):
         if d.hour == hours and d.minute == minutes:
             # processes
             csvWrite()
-            print('Done! ✅')
+            logger.info('Done! ✅')
             os.kill(os.getppid(), signal.SIGKILL)
             sys.exit()
         else:
@@ -43,9 +48,9 @@ def setupFolders():
         os.mkdir('./clouds/raw')
         os.mkdir('./clouds/processed')
 
-        print('Cloud images directory setup ✅')
+        logger.info('Cloud images directory setup ✅')
     else:
-        print('Clouds directory already setup! ✅')
+        logger.info('Clouds directory already setup! ✅')
 
 
 # Collects an array of information to write to csv
@@ -93,7 +98,7 @@ def csvCreate():
 
         csv_writer.writerow(fields)
 
-    print('data01.csv file created! ✅')
+    logger.info('data01.csv file created! ✅')
 
 # Appends data to data01.csv
 def csvWrite():
@@ -104,7 +109,7 @@ def csvWrite():
 
         csv_writer.writerows(collectData())
 
-    print('Written data to data01.csv ✅')
+    logger.info('Written data to data01.csv ✅')
 
 # Run program for specified time
 # run(hours, minutes)
