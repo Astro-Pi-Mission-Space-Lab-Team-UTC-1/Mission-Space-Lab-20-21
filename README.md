@@ -94,7 +94,7 @@ An image is taken every 5 seconds.
 
 &nbsp;
 
-![](https://latex2image-output.s3.amazonaws.com/img-8eQj2syd.png)
+![](https://latex2image-output.s3.amazonaws.com/img-RYtvb1nU.jpg)
 
 &nbsp;
 
