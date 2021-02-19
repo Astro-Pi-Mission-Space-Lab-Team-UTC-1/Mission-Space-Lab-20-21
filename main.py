@@ -36,7 +36,7 @@ def run(hours, minutes):
         else:
             camera.start_preview()
             sleep(5)
-            camera.capture(dir_path/f'clouds/raw/cloud_{i}.jpg')
+            camera.capture(f'{dir_path}/clouds/raw/cloud_{i}.jpg')
             camera.stop_preview()
 
             if i % 10 == 0:
@@ -86,7 +86,7 @@ def collectData():
         temp.append(calcOktas(ptc))
 
         # Moves file after processing it
-        shutil.move(dir_path/f'clouds/raw/{filename}', dir_path/f'clouds/processed/{filename}')
+        shutil.move(f'{dir_path}/clouds/raw/{filename}', f'{dir_path}/clouds/processed/{filename}')
 
         data.append(temp)
 

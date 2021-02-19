@@ -35,7 +35,7 @@ def get_pixels_of_class(image):
 # Returns the percentage of the image which is cloud
 def get_pct_clouds(filename):
     # Open locally stored image
-    image = ImageEnhance.Contrast(Image.open(dir_path/f'/clouds/raw/{filename}')).enhance(2)
+    image = ImageEnhance.Contrast(Image.open(f'{dir_path}//clouds/raw/{filename}')).enhance(2)
 
     # Compute total white pixels from image array
     total_dark_pix, total_cloud_pix = get_pixels_of_class(image)
