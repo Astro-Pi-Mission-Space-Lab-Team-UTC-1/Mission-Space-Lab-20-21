@@ -1,8 +1,7 @@
 from data_processing import get_pct_clouds, calcLatLong, calcOktas
 import shutil, csv, os,signal, datetime, sys
 from picamera import PiCamera
-from time import sleep 
-
+from time import sleep
 
 
 def run(hours):
@@ -10,8 +9,8 @@ def run(hours):
     csvCreate()
 
     camera = PiCamera()
-    camera.resolution = (1920, 1080) 
-    
+    camera.resolution = (1920, 1080)
+
     # Loop runs for 3 hours
     i = 0
     while True:
@@ -21,7 +20,7 @@ def run(hours):
             csvWrite()
             print('Done! ✅')
             os.kill(os.getppid(), signal.SIGKILL)
-            sys.exit() 
+            sys.exit()
         else:
             camera.start_preview()
             sleep(3)
@@ -30,7 +29,7 @@ def run(hours):
 
             if i % 10 == 0:
                 csvWrite()
-            
+
             i += 1
 
 
@@ -69,32 +68,32 @@ def collectData():
         # Moves file after generating data from it
         shutil.move(f'./clouds/raw/{filename}', f'./clouds/processed/{filename}')
 
-        data.append(temp)    
+        data.append(temp)
 
     return data
 
-# Writes empty data.csv
+# Writes empty data01.csv
 def csvCreate():
 
-    with open('data.csv', 'w+') as csv_file:
+    with open('data01.csv', 'w+') as csv_file:
         fields = ['name', '% of clouds', 'latitude', 'longitude', 'cloud cover (oktas)']
 
         csv_writer = csv.writer(csv_file)
 
         csv_writer.writerow(fields)
 
-    print('data.csv file created! ✅')
+    print('data01.csv file created! ✅')
 
-# Appends data to data.csv
+# Appends data to data01.csv
 def csvWrite():
 
-    with open('data.csv', 'a+') as csv_file:
+    with open('data01.csv', 'a+') as csv_file:
 
         csv_writer = csv.writer(csv_file)
 
         csv_writer.writerows(collectData())
 
-    print('Written data to data.csv ✅')
+    print('Written data to data01.csv ✅')
 
 # Starts program
 run(3)
