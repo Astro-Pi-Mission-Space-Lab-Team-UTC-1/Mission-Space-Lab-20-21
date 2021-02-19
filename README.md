@@ -61,7 +61,7 @@ This data can also be used when reviewing the data in phase 4.
 
 **Image Processing**
 
-![](https://live.staticflickr.com/4880/46142459702_ca1995f7b0_3k.jpg =400x225)
+![](https://live.staticflickr.com/4880/46142459702_68601f4372_w_d.jpg)
 
 *Image from https://flic.kr/p/2disaG*
 
