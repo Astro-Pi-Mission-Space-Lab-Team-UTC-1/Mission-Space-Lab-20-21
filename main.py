@@ -7,6 +7,9 @@ from logzero import logger, logfile
 # Setup logfile
 logfile('./UTC1.log')
 
+# Setup directory path
+dir_path = Path(__file__).parent.resolve()
+
 # Main function
 def run(hours, minutes):
     # Setup
@@ -26,13 +29,13 @@ def run(hours, minutes):
         if d.hour == hours and d.minute == minutes:
             # processes
             csvWrite()
-            logger.info('Done! ✅')
+            logger.info('Finished! 🎉')
             os.kill(os.getppid(), signal.SIGKILL)
             sys.exit()
         else:
             camera.start_preview()
             sleep(5)
-            camera.capture(f'./clouds/raw/cloud_{i}.jpg')
+            camera.capture(dir_path/f'clouds/raw/cloud_{i}.jpg')
             camera.stop_preview()
 
             if i % 10 == 0:
@@ -43,10 +46,10 @@ def run(hours, minutes):
 
 # Create 'clouds' folder if it doesn't exist
 def setupFolders():
-    if os.path.exists('./clouds') != True:
-        os.mkdir('./clouds')
-        os.mkdir('./clouds/raw')
-        os.mkdir('./clouds/processed')
+    if os.path.exists(dir_path/'clouds') != True:
+        os.mkdir(dir_path/'clouds')
+        os.mkdir(dir_path/'clouds/raw')
+        os.mkdir(dir_path/'clouds/processed')
 
         logger.info('Cloud images directory setup ✅')
     else:
@@ -58,7 +61,7 @@ def collectData():
     data = []
 
     # Returns array of filenames in the directory
-    images = os.listdir('./clouds/raw')
+    images = os.listdir(dir_path/'clouds/raw')
 
     # Loops through all the file names
     for filename in images:
@@ -82,7 +85,7 @@ def collectData():
         temp.append(calcOktas(ptc))
 
         # Moves file after processing it
-        shutil.move(f'./clouds/raw/{filename}', f'./clouds/processed/{filename}')
+        shutil.move(dir_path/f'clouds/raw/{filename}', dir_path/f'clouds/processed/{filename}')
 
         data.append(temp)
 
