@@ -23,7 +23,7 @@ def run(hours):
             sys.exit()
         else:
             camera.start_preview()
-            sleep(3)
+            sleep(5)
             camera.capture(f'./clouds/raw/cloud_{i}.jpg')
             camera.stop_preview()
 
