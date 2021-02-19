@@ -3,6 +3,7 @@ import shutil, csv, os,signal, datetime, sys
 from picamera import PiCamera
 from time import sleep
 from logzero import logger, logfile
+from pathlib import Path
 
 # Setup logfile
 logfile('./UTC1.log')
