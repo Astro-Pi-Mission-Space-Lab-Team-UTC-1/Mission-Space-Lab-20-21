@@ -120,7 +120,7 @@ For this reason we are have not deleted the images so we can review them in phas
 
 ### Contributors
 
-Samson Nagamani <samson.nagamani@pm.me>
-Sam Quail <sam@squail.org>
-Sonia Kumar <sonia.kumar.242@gmail.com>
-Matt Nock <thematt.nock@gmail.com>
+- Samson Nagamani <samson.nagamani@pm.me>
+- Sam Quail <sam@squail.org>
+- Sonia Kumar <sonia.kumar.242@gmail.com>
+- Matt Nock <thematt.nock@gmail.com>
