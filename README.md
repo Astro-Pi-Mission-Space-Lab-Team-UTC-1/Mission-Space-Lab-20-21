@@ -1,4 +1,4 @@
-> Note: All the code was initially written in repl.it, which is a programming collaboration tool. The source code was written by everyone in this organisation regardless of what GitHub inisghts shows.*
+> Note: All the code was initially written in repl.it, which is a programming collaboration tool. The source code was written by everyone in this organisation regardless of what GitHub insights shows.*
 
 # Astro Pi | Mission Space Lab | UTCR
 
